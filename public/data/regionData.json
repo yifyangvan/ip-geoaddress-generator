@@ -1,65 +1,515 @@
 {
     "United States": {
         "New York": ["New York", "Brooklyn", "Queens", "Manhattan", "Bronx", "Buffalo"],
-        "California": ["Los Angeles", "San Francisco", "San Diego", "Sacramento", "San Jose", "Fresno"],
-        "Illinois": ["Chicago", "Rockford", "Aurora", "Springfield", "Joliet"],
-        "Florida": ["Miami", "Tampa", "Orlando", "Jacksonville", "Fort Lauderdale"],
-        "Texas": ["Houston", "Dallas", "San Antonio", "Austin", "Fort Worth"]
+        "California": ["Los Angeles", "San Francisco", "San Diego", "Sacramento", "San Jose", "Fresno"]
     },
     "China": {
         "Beijing": ["Beijing"],
         "Shanghai": ["Shanghai"],
-        "Guangdong": ["Guangzhou", "Shenzhen", "Dongguan", "Foshan", "Zhuhai"],
-        "Zhejiang": ["Hangzhou", "Ningbo", "Wenzhou", "Shaoxing", "Jiaxing"],
-        "Jiangsu": ["Nanjing", "Suzhou", "Wuxi", "Changzhou", "Nantong"]
+        "Guangdong": ["Guangzhou", "Shenzhen", "Dongguan", "Foshan", "Zhuhai"]
     },
     "United Kingdom": {
         "England": ["London", "Birmingham", "Manchester", "Liverpool", "Leeds"],
-        "Scotland": ["Glasgow", "Edinburgh", "Aberdeen", "Dundee"],
-        "Wales": ["Cardiff", "Swansea", "Newport"],
-        "Northern Ireland": ["Belfast", "Londonderry"]
+        "Scotland": ["Glasgow", "Edinburgh", "Aberdeen", "Dundee"]
     },
     "France": {
         "Île-de-France": ["Paris", "Marseille", "Lyon", "Toulouse", "Nice"],
-        "Auvergne-Rhône-Alpes": ["Lyon", "Grenoble", "Saint-Étienne"],
-        "Hauts-de-France": ["Lille", "Roubaix", "Tourcoing"],
-        "Provence-Alpes-Côte d'Azur": ["Marseille", "Nice", "Cannes"]
+        "Auvergne-Rhône-Alpes": ["Lyon", "Grenoble", "Saint-Étienne"]
     },
     "Germany": {
         "Bavaria": ["Munich", "Nuremberg", "Augsburg"],
-        "North Rhine-Westphalia": ["Cologne", "Düsseldorf", "Essen", "Dortmund"],
-        "Baden-Württemberg": ["Stuttgart", "Mannheim", "Karlsruhe"],
-        "Hesse": ["Frankfurt", "Wiesbaden", "Kassel"]
+        "North Rhine-Westphalia": ["Cologne", "Düsseldorf", "Essen", "Dortmund"]
     },
     "Japan": {
         "Tokyo": ["Tokyo"],
         "Kanagawa": ["Yokohama", "Kawasaki"],
-        "Osaka": ["Osaka", "Sakai"],
-        "Aichi": ["Nagoya"],
-        "Hyogo": ["Kobe"]
+        "Osaka": ["Osaka", "Sakai"]
     },
     "Canada": {
         "Ontario": ["Toronto", "Ottawa", "Mississauga", "Brampton"],
-        "Quebec": ["Montreal", "Quebec City"],
-        "British Columbia": ["Vancouver", "Surrey", "Burnaby"],
-        "Alberta": ["Calgary", "Edmonton"]
+        "Quebec": ["Montreal", "Quebec City"]
     },
     "Australia": {
         "New South Wales": ["Sydney", "Newcastle", "Wollongong"],
-        "Victoria": ["Melbourne", "Geelong"],
-        "Queensland": ["Brisbane", "Gold Coast", "Sunshine Coast"],
-        "Western Australia": ["Perth"]
+        "Victoria": ["Melbourne", "Geelong"]
     },
     "India": {
         "Maharashtra": ["Mumbai", "Pune", "Nagpur"],
         "Delhi": ["Delhi"],
-        "Karnataka": ["Bangalore", "Mysore", "Hubli"],
-        "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai"]
+        "Karnataka": ["Bangalore", "Mysore", "Hubli"]
     },
     "Brazil": {
         "São Paulo": ["São Paulo", "Campinas"],
         "Rio de Janeiro": ["Rio de Janeiro"],
-        "Minas Gerais": ["Belo Horizonte", "Uberlândia"],
-        "Bahia": ["Salvador"]
+        "Minas Gerais": ["Belo Horizonte", "Uberlândia"]
+    },
+    "Russia": {
+        "Moscow Oblast": ["Moscow"],
+        "Saint Petersburg": ["Saint Petersburg"],
+        "Novosibirsk Oblast": ["Novosibirsk"]
+    },
+    "South Korea": {
+        "Seoul": ["Seoul"],
+        "Gyeonggi": ["Incheon", "Suwon", "Goyang"],
+        "Busan": ["Busan"]
+    },
+    "Italy": {
+        "Lombardy": ["Milan", "Brescia", "Monza"],
+        "Lazio": ["Rome", "Fiumicino", "Ciampino"],
+        "Campania": ["Naples", "Salerno", "Avellino"]
+    },
+    "Spain": {
+        "Madrid": ["Madrid"],
+        "Catalonia": ["Barcelona", "Tarragona", "Girona"],
+        "Andalusia": ["Seville", "Malaga", "Granada"]
+    },
+    "Mexico": {
+        "Mexico City": ["Mexico City"],
+        "Jalisco": ["Guadalajara", "Zapopan", "Tlaquepaque"],
+        "Nuevo León": ["Monterrey", "San Nicolás de los Garza"]
+    },
+    "Indonesia": {
+        "Jakarta": ["Jakarta"],
+        "West Java": ["Bandung", "Bekasi", "Depok"],
+        "East Java": ["Surabaya", "Malang", "Madura"]
+    },
+    "Turkey": {
+        "Istanbul": ["Istanbul"],
+        "Ankara": ["Ankara"],
+        "İzmir": ["İzmir", "Çeşme", "Foça"]
+    },
+    "Netherlands": {
+        "North Holland": ["Amsterdam", "Haarlem", "Zaandam"],
+        "South Holland": ["Rotterdam", "The Hague", "Utrecht"],
+        "North Brabant": ["Eindhoven", "Tilburg", "Breda"]
+    },
+    "Switzerland": {
+        "Zurich": ["Zurich", "Winterthur", "Uster"],
+        "Geneva": ["Geneva", "Lausanne", "Nyon"],
+        "Bern": ["Bern", "Biel/Bienne", "Thun"]
+    },
+    "Sweden": {
+        "Stockholm County": ["Stockholm", "Solna", "Sundbyberg"],
+        "Skåne County": ["Malmö", "Lund", "Helsingborg"],
+        " Västra Götaland County": ["Gothenburg", "Mölndal", "Partille"]
+    },
+    "Norway": {
+        "Oslo": ["Oslo", "Bærum", "Asker"],
+        "Viken": ["Bergen", "Stavanger", "Trondheim"]
+    },
+    "Denmark": {
+        "Capital Region": ["Copenhagen", "Frederiksberg", "Gentofte"],
+        "Central Jutland": ["Aarhus", "Horsens", "Randers"]
+    },
+    "Finland": {
+        "Uusimaa": ["Helsinki", "Espoo", "Vantaa"],
+        "Southwest Finland": ["Turku", "Rauma", "Naantali"]
+    },
+    "Belgium": {
+        "Brussels-Capital": ["Brussels"],
+        "Flanders": ["Antwerp", "Ghent", "Bruges"],
+        "Wallonia": ["Liège", "Charleroi", "Namur"]
+    },
+    "Austria": {
+        "Vienna": ["Vienna", "Lower Austria", "Burgenland"],
+        "Upper Austria": ["Linz", "Salzburg", "Innsbruck"]
+    },
+    "Portugal": {
+        "Lisbon": ["Lisbon", "Cascais", "Sintra"],
+        "Porto": ["Porto", "Braga", "Guimarães"]
+    },
+    "Greece": {
+        "Attica": ["Athens", "Piraeus", "Peristeri"],
+        "Central Macedonia": ["Thessaloniki", "Kalamata", "Patras"]
+    },
+    "Poland": {
+        "Mazovia": ["Warsaw", "Praga", "Wilanów"],
+        "Silesia": ["Kraków", "Katowice", "Łódź"]
+    },
+    "Czech Republic": {
+        "Prague": ["Prague", "Brno", "Ostrava"],
+        "Central Bohemia": ["Plzeň", "Liberec", "Ústí nad Labem"]
+    },
+    "Hungary": {
+        "Budapest": ["Budapest", "Debrecen", "Szeged"],
+        "Central Hungary": ["Miskolc", "Pécs", "Győr"]
+    },
+    "Romania": {
+        "Bucharest": ["Bucharest", "Cluj-Napoca", "Timișoara"],
+        "Ilfov": ["Constanța", "Craiova", "Brașov"]
+    },
+    "Bulgaria": {
+        "Sofia": ["Sofia", "Plovdiv", "Varna"],
+        "Burgas": ["Burgas", "Ruse", "Stara Zagora"]
+    },
+    "Croatia": {
+        "Zagreb": ["Zagreb", "Split", "Dubrovnik"],
+        "Split-Dalmatia": ["Osijek", "Rijeka", "Zadar"]
+    },
+    "Slovakia": {
+        "Bratislava": ["Bratislava", "Košice", "Prešov"],
+        "Trnava": ["Žilina", "Banská Bystrica", "Nitra"]
+    },
+    "Slovenia": {
+        "Ljubljana": ["Ljubljana", "Maribor", "Celje"],
+        "Coastal-Karst": ["Koper", "Nova Gorica", "Velenje"]
+    },
+    "Estonia": {
+        "Harju": ["Tallinn", "Tartu", "Narva"],
+        "Ida-Viru": ["Pärnu", "Kohtla-Järve", "Viljandi"]
+    },
+    "Latvia": {
+        "Riga": ["Riga", "Daugavpils", "Liepāja"],
+        "Jelgava": ["Ventspils", "Jūrmala", "Rēzekne"]
+    },
+    "Lithuania": {
+        "Vilnius": ["Vilnius", "Kaunas", "Klaipėda"],
+        "Kaunas": ["Šiauliai", "Panevėžys", "Alytus"]
+    },
+    "Ireland": {
+        "Dublin": ["Dublin", "Cork", "Limerick"],
+        "Galway": ["Galway", "Waterford", "Belfast"]
+    },
+    "Malaysia": {
+        "Kuala Lumpur": ["Kuala Lumpur", "Petaling Jaya", "Subang Jaya"],
+        "Selangor": ["George Town", "Ipoh", "Johor Bahru"]
+    },
+    "Singapore": {
+        "Central Region": ["Singapore"],
+        "East Region": ["Bedok", "Tampines", "Pasir Ris"]
+    },
+    "Thailand": {
+        "Bangkok": ["Bangkok", "Nonthaburi", "Pathum Thani"],
+        "Chonburi": ["Pattaya", "Phuket", "Chiang Mai"]
+    },
+    "Vietnam": {
+        "Hanoi": ["Hanoi", "Ho Chi Minh City", "Da Nang"],
+        "Binh Duong": ["Haiphong", "Can Tho", "Vung Tau"]
+    },
+    "Philippines": {
+        "Metro Manila": ["Manila", "Quezon City", "Makati"],
+        "Cebu": ["Cebu City", "Davao City", "Cagayan de Oro"]
+    },
+    "Pakistan": {
+        "Punjab": ["Lahore", "Karachi", "Islamabad"],
+        "Sindh": ["Faisalabad", "Rawalpindi", "Multan"]
+    },
+    "Bangladesh": {
+        "Dhaka": ["Dhaka", "Chittagong", "Khulna"],
+        "Rajshahi": ["Rajshahi", "Sylhet", "Barisal"]
+    },
+    "Sri Lanka": {
+        "Western Province": ["Colombo", "Kandy", "Galle"],
+        "Central Province": ["Jaffna", "Negombo", "Matara"]
+    },
+    "Nepal": {
+        "Bagmati": ["Kathmandu", "Pokhara", "Lalitpur"],
+        "Gandaki": ["Bhaktapur", "Birgunj", "Biratnagar"]
+    },
+    "Bhutan": {
+        "Thimphu": ["Thimphu", "Phuntsholing", "Paro"],
+        "Chukha": ["Samdrup Jongkhar", "Wangdue Phodrang", "Punakha"]
+    },
+    "Mongolia": {
+        "Ulaanbaatar": ["Ulaanbaatar", "Erdenet", "Darkhan"],
+        "Orkhon": ["Choibalsan", "Mörön", "Kharkhorin"]
+    },
+    "Kazakhstan": {
+        "Nur-Sultan": ["Astana", "Almaty", "Shymkent"],
+        "Almaty": ["Atyrau", "Aktobe", "Kostanay"]
+    },
+    "Uzbekistan": {
+        "Tashkent": ["Tashkent", "Samarkand", "Bukhara"],
+        "Fergana": ["Andijan", "Namangan", "Kokand"]
+    },
+    "Turkmenistan": {
+        "Ashgabat": ["Ashgabat", "Turkmenbashi", "Mary"],
+        "Lebap": ["Dashoguz", "Balkanabat", "Tejen"]
+    },
+    "Kyrgyzstan": {
+        "Bishkek": ["Bishkek", "Osh", "Jalal-Abad"],
+        "Chuy": ["Karakol", "Tokmok", "Kochkor"]
+    },
+    "Tajikistan": {
+        "Dushanbe": ["Dushanbe", "Khujand", "Kulob"],
+        "Sughd": ["Istaravshan", "Qurghonteppa", "Khorugh"]
+    },
+    "Iran": {
+        "Tehran": ["Tehran", "Mashhad", "Isfahan"],
+        "East Azerbaijan": ["Tabriz", "Shiraz", "Ahvaz"]
+    },
+    "Iraq": {
+        "Baghdad": ["Baghdad", "Basra", "Mosul"],
+        "Erbil": ["Erbil", "Sulaymaniyah", "Kirkuk"]
+    },
+    "Saudi Arabia": {
+        "Riyadh": ["Riyadh", "Jeddah", "Mecca"],
+        "Makkah": ["Medina", "Dammam", "Taif"]
+    },
+    "United Arab Emirates": {
+        "Abu Dhabi": ["Abu Dhabi", "Dubai", "Sharjah"],
+        "Dubai": ["Ajman", "Umm Al-Quwain", "Ras Al Khaimah"]
+    },
+    "Qatar": {
+        "Doha": ["Doha", "Al Rayyan", "Umm Salal"],
+        "Al Wakrah": ["Al Khor", "Madinat ash Shamal", "Al Daayen"]
+    },
+    "Kuwait": {
+        "Kuwait City": ["Kuwait City", "Al Jahra", "Hawalli"],
+        "Farwaniya": ["Mubarak Al-Kabeer", "Ahmadi", "Jahra"]
+    },
+    "Bahrain": {
+        "Manama": ["Manama", "Riffa", "Muharraq"],
+        "Northern Governorate": ["Isa Town", "Sitrah", "Budaiya"]
+    },
+    "Oman": {
+        "Muscat": ["Muscat", "Salalah", "Sohar"],
+        "Al Batinah": ["Sur", "Ibri", "Nizwa"]
+    },
+    "Yemen": {
+        "Sanaa": ["Sanaa", "Aden", "Taiz"],
+        "Hadhramaut": ["Al Hudaydah", "Ibb", "Shabwah"]
+    },
+    "Jordan": {
+        "Amman": ["Amman", "Zarqa", "Irbid"],
+        "Mafraq": ["Aqaba", "Madaba", "Karak"]
+    },
+    "Lebanon": {
+        "Beirut": ["Beirut", "Tripoli", "Sidon"],
+        "Mount Lebanon": ["Jounieh", "Tyre", "Zahle"]
+    },
+    "Syria": {
+        "Damascus": ["Damascus", "Aleppo", "Homs"],
+        "Latakia": ["Hama", "Idlib", "Raqqa"]
+    },
+    "Israel": {
+        "Tel Aviv": ["Tel Aviv", "Jerusalem", "Haifa"],
+        "Central District": ["Rishon LeTsiyon", "Petah Tikva", "Ashdod"]
+    },
+    "Palestine": {
+        "West Bank": ["Ramallah", "Hebron", "Nablus"],
+        "Gaza Strip": ["Gaza City", "Khan Yunis", "Rafah"]
+    },
+    "Egypt": {
+        "Cairo": ["Cairo", "Alexandria", "Giza"],
+        "Giza": ["Shubra El Kheima", "Port Said", "Suez"]
+    },
+    "Algeria": {
+        "Algiers": ["Algiers", "Oran", "Constantine"],
+        "Oran": ["Annaba", "Blida", "Batna"]
+    },
+    "Tunisia": {
+        "Tunis": ["Tunis", "Sfax", "Sousse"],
+        "Ariana": ["Bizerta", "Gabès", "Kairouan"]
+    },
+    "Morocco": {
+        "Casablanca": ["Casablanca", "Rabat", "Fes"],
+        "Marrakech-Safi": ["Marrakech", "Tangier", "Agadir"]
+    },
+    "Libya": {
+        "Tripoli": ["Tripoli", "Benghazi", "Misrata"],
+        "Benghazi": ["Zawiya", "Zliten", "Sabha"]
+    },
+    "Nigeria": {
+        "Lagos": ["Lagos", "Abuja", "Kano"],
+        "Ogun": ["Ibadan", "Port Harcourt", "Benin City"]
+    },
+    "South Africa": {
+        "Gauteng": ["Johannesburg", "Cape Town", "Durban"],
+        "Western Cape": ["Pretoria", "Port Elizabeth", "Bloemfontein"]
+    },
+    "Kenya": {
+        "Nairobi": ["Nairobi", "Mombasa", "Kisumu"],
+        "Kiambu": ["Nakuru", "Eldoret", "Thika"]
+    },
+    "Tanzania": {
+        "Dar es Salaam": ["Dar es Salaam", "Mwanza", "Arusha"],
+        "Dodoma": ["Dodoma", "Zanzibar City", "Tanga"]
+    },
+    "Uganda": {
+        "Kampala": ["Kampala", "Gulu", "Jinja"],
+        "Wakiso": ["Mbarara", "Mbale", "Kasese"]
+    },
+    "Rwanda": {
+        "Kigali": ["Kigali", "Butare", "Ruhengeri"],
+        "Eastern": ["Gitarama", "Byumba", "Gisenyi"]
+    },
+    "Burundi": {
+        "Bujumbura": ["Bujumbura", "Gitega", "Muyinga"],
+        "Bujumbura Rural": ["Ngozi", "Rutana", "Bururi"]
+    },
+    "Mozambique": {
+        "Maputo": ["Maputo", "Beira", "Nampula"],
+        "Nampula": ["Chimoio", "Tete", "Quelimane"]
+    },
+    "Malawi": {
+        "Lilongwe": ["Lilongwe", "Blantyre", "Mzuzu"],
+        "Blantyre": ["Zomba", "Kasungu", "Mangochi"]
+    },
+    "Zambia": {
+        "Lusaka": ["Lusaka", "Kitwe", "Ndola"],
+        "Copperbelt": ["Livingstone", "Kabwe", "Chipata"]
+    },
+    "Zimbabwe": {
+        "Harare": ["Harare", "Bulawayo", "Mutare"],
+        "Bulawayo": ["Gweru", "Chitungwiza", "Kwekwe"]
+    },
+    "Botswana": {
+        "Gaborone": ["Gaborone", "Francistown", "Maun"],
+        "Francistown": ["Selebi-Phikwe", "Serowe", "Molepolole"]
+    },
+    "Namibia": {
+        "Windhoek": ["Windhoek", "Walvis Bay", "Swakopmund"],
+        "Erongo": ["Oshakati", "Rundu", "Otjiwarongo"]
+    },
+    "Angola": {
+        "Luanda": ["Luanda", "Huambo", "Lobito"],
+        "Benguela": ["Benguela", "Kuito", "Malanje"]
+    },
+    "Mali": {
+        "Bamako": ["Bamako", "Ségou", "Mopti"],
+        "Koulikoro": ["Gao", "Tombouctou", "Kayes"]
+    },
+    "Ivory Coast": {
+        "Abidjan": ["Abidjan", "Yamoussoukro", "Bouaké"],
+        "Bassam": ["Daloa", "San Pedro", "Korhogo"]
+    },
+    "Ghana": {
+        "Greater Accra": ["Accra", "Kumasi", "Takoradi"],
+        "Ashanti": ["Tamale", "Sekondi-Takoradi", "Cape Coast"]
+    },
+    "Togo": {
+        "Lomé": ["Lomé", "Kara", "Sokodé"],
+        "Maritime": ["Atakpamé", "Dapaong", "Tsévié"]
+    },
+    "Benin": {
+        "Cotonou": ["Cotonou", "Porto-Novo", "Parakou"],
+        "Ouémé": ["Bohicon", "Abomey-Calavi", "Natitingou"]
+    },
+    "Niger": {
+        "Niamey": ["Niamey", "Maradi", "Zinder"],
+        "Maradi": ["Agadez", "Dosso", "Tahoua"]
+    },
+    "Chad": {
+        "N'Djamena": ["N'Djamena", "Moundou", "Sarh"],
+        "Logone Occidental": ["Abéché", "Koumra", "Mongo"]
+    },
+    "Sudan": {
+        "Khartoum": ["Khartoum", "Omdurman", "Port Sudan"],
+        "North Kordofan": ["El-Obeid", "Wad Medani", "Al-Fashir"]
+    },
+    "South Sudan": {
+        "Juba": ["Juba", "Malakal", "Wau"],
+        "Central Equatoria": ["Yei", "Bor", "Rumbek"]
+    },
+    "Argentina": {
+        "Buenos Aires": ["Buenos Aires", "Córdoba", "Rosario"],
+        "Córdoba": ["Mendoza", "San Miguel de Tucumán", "La Plata"]
+    },
+    "Chile": {
+        "Santiago": ["Santiago", "Valparaíso", "Concepción"],
+        "Valparaíso": ["La Serena", "Antofagasta", "Talcahuano"]
+    },
+    "Colombia": {
+        "Bogotá": ["Bogotá", "Medellín", "Cali"],
+        "Antioquia": ["Barranquilla", "Cartagena", "Cúcuta"]
+    },
+    "Venezuela": {
+        "Caracas": ["Caracas", "Maracaibo", "Valencia"],
+        "Miranda": ["Barquisimeto", "Ciudad Guayana", "San Cristóbal"]
+    },
+    "Peru": {
+        "Lima": ["Lima", "Arequipa", "Callao"],
+        "Arequipa": ["Trujillo", "Chiclayo", "Iquitos"]
+    },
+    "Ecuador": {
+        "Pichincha": ["Quito", "Guayaquil", "Cuenca"],
+        "Guayas": ["Santo Domingo", "Machala", "Portoviejo"]
+    },
+    "Bolivia": {
+        "La Paz": ["La Paz", "Santa Cruz de la Sierra", "Cochabamba"],
+        "Santa Cruz": ["El Alto", "Oruro", "Potosi"]
+    },
+    "Paraguay": {
+        "Asunción": ["Asunción", "Ciudad del Este", "San Lorenzo"],
+        "Alto Paraná": ["Luque", "Capiatá", "Lambaré"]
+    },
+    "Uruguay": {
+        "Montevideo": ["Montevideo", "Salto", "Paysandú"],
+        "Canelones": ["Las Piedras", "Rivera", "Maldonado"]
+    },
+    "Guatemala": {
+        "Guatemala City": ["Guatemala City", "Mixco", "Villa Nueva"],
+        "Sacatepéquez": ["Quetzaltenango", "Escuintla", "Antigua Guatemala"]
+    },
+    "Honduras": {
+        "Francisco Morazán": ["Tegucigalpa", "San Pedro Sula", "Choluteca"],
+        "Cortés": ["La Ceiba", "El Progreso", "Danlí"]
+    },
+    "El Salvador": {
+        "San Salvador": ["San Salvador", "Santa Ana", "San Miguel"],
+        "La Libertad": ["Mejicanos", "Apopa", "Soyapango"]
+    },
+    "Nicaragua": {
+        "Managua": ["Managua", "León", "Granada"],
+        "León": ["Masaya", "Chinandega", "Estelí"]
+    },
+    "Costa Rica": {
+        "San José": ["San José", "Alajuela", "Cartago"],
+        "Alajuela": ["Heredia", "Puntarenas", "Limón"]
+    },
+    "Panama": {
+        "Panama City": ["Panama City", "Colón", "David"],
+        "Panamá": ["La Chorrera", "Penonomé", "Santiago"]
+    },
+    "Australia": {
+        "New South Wales": ["Sydney", "Newcastle", "Wollongong"],
+        "Victoria": ["Melbourne", "Geelong", "Ballarat"]
+    },
+    "New Zealand": {
+        "Auckland": ["Auckland", "Wellington", "Christchurch"],
+        "Wellington": ["Hamilton", "Dunedin", "Tauranga"]
+    },
+    "Papua New Guinea": {
+        "National Capital District": ["Port Moresby", "Lae", "Mount Hagen"],
+        "Morobe": ["Madang", "Kimbe", "Rabaul"]
+    },
+    "Fiji": {
+        "Central Division": ["Suva", "Nadi", "Lautoka"],
+        "Western Division": ["Ba", "Labasa", "Sigatoka"]
+    },
+    "Solomon Islands": {
+        "Honiara": ["Honiara", "Gizo", "Auki"],
+        "Guadalcanal": ["Kirakira", "Taro", "Munda"]
+    },
+    "Vanuatu": {
+        "Port Vila": ["Port Vila", "Luganville", "Santo"],
+        "Efate": ["Malakula", "Tanna", "Pentecost"]
+    },
+    "Samoa": {
+        "Upolu": ["Apia", "Faleula", "Mulifanua"],
+        "Savai'i": ["Salelologa", "Vaitele", "Falealili"]
+    },
+    "Tonga": {
+        "Tongatapu": ["Nuku'alofa", "Neiafu", "Vava'u"],
+        "Vava'u": ["Ha'apai", "Eua", "Niuatoputapu"]
+    },
+    "Tuvalu": {
+        "Funafuti": ["Funafuti", "Vaitupu", "Nanumea"],
+        "Vaitupu": ["Nanumanga", "Niutao", "Nui"]
+    },
+    "Kiribati": {
+        "Tarawa": ["South Tarawa", "Betio", "Bairiki"],
+        "Gilbert Islands": ["Abaiang", "Abemama", "Aranuka"]
+    },
+    "Micronesia": {
+        "Pohnpei": ["Palikir", "Kolonia", "Kosrae"],
+        "Kosrae": ["Pohnpei", "Chuuk", "Yap"]
+    },
+    "Marshall Islands": {
+        "Majuro": ["Majuro", "Ebeye", "Jaluit"]
+    },
+    "Palau": {
+        "Koror": ["Koror", "Melekeok", "Airai"]
     }
 }

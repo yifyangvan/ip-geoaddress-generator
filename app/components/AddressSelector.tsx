@@ -105,11 +105,19 @@ export function AddressSelector({
             >
               <Select.Trigger />
               <Select.Content>
-                {Object.keys(regionData).map((countryName) => (
-                  <Select.Item key={countryName} value={countryName}>
-                    {countryName}
-                  </Select.Item>
-                ))}
+                {(() => {
+                  const countries = Object.keys(regionData);
+                  // 将美国放在首位，其他国家按字母顺序排序
+                  const sortedCountries = [
+                    "United States",
+                    ...countries.filter(c => c !== "United States").sort((a, b) => a.localeCompare(b))
+                  ];
+                  return sortedCountries.map((countryName) => (
+                    <Select.Item key={countryName} value={countryName}>
+                      {countryName}
+                    </Select.Item>
+                  ));
+                })()}
               </Select.Content>
             </Select.Root>
 

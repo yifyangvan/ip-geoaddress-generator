@@ -127,22 +127,38 @@ export default class WFDService {
         }
       };
 
-      // 首先尝试1-2公里范围内查找
-      let randomCoords = this.generateRandomOffset(latitude, longitude, 1);
-      let url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en`;
-      let response = await axios.get(url, axiosConfig);
-      let address = response.data.address;
+      let attempts = 0;
+      const maxAttempts = 3;
+      let address: Address | null = null;
+
+      while (attempts < maxAttempts && !address) {
+        attempts++;
+        // 生成随机偏移范围，根据尝试次数逐渐扩大
+        const range = attempts === 1 ? 1 : attempts === 2 ? 5 : 15;
+        let randomCoords = this.generateRandomOffset(latitude, longitude, range);
+        let url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en&addressdetails=1`;
+        
+        try {
+          let response = await axios.get(url, axiosConfig);
+          
+          // 检查响应是否有效
+          if (response.data && response.data.address) {
+            const addr = response.data.address;
+            // 检查是否找到有效的住宅区地址（有门牌号或详细街道信息）
+            const isResidential = addr.house_number || (addr.road && addr.city);
+            
+            if (isResidential) {
+              address = addr;
+            }
+          }
+        } catch (apiError) {
+          // 忽略单次API调用错误，继续尝试
+          console.log(`第${attempts}次尝试获取地址失败，继续尝试`);
+        }
+      }
       
-      // 检查是否找到有效的住宅区地址（有门牌号或详细街道信息）
-      const isResidential = address.house_number || (address.road && address.city);
-      
-      // 如果没有找到有效的住宅区地址，扩大到10-20公里范围搜索
-      if (!isResidential) {
-        console.log("1-2公里范围内未找到住宅区，扩大搜索范围到10-20公里");
-        randomCoords = this.generateRandomOffset(latitude, longitude, 15); // 10-20公里范围内的随机偏移
-        url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en`;
-        response = await axios.get(url, axiosConfig);
-        address = response.data.address;
+      if (!address) {
+        throw new Error(`尝试${maxAttempts}次后仍未找到有效地址`);
       }
       
       return address;
