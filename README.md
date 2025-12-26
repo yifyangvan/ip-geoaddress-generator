@@ -17,6 +17,7 @@
 https://ip-geoaddress-generator.pages.dev/
 
 ## 主要功能
+更新：优先搜索附近地区住宅地址，精确到门牌号。（如果没有门牌号会自动忽略，可以多生成几次）
 
 ### 地址生成
 - 自动检测当前IP地址生成
@@ -41,19 +42,19 @@ https://ip-geoaddress-generator.pages.dev/
 
 ## 部署
 
-[Cloudflare部署](https://github.com/GuooGaii/ip-geoaddress-generator/blob/main/Cloudflare部署教程.md)
+[Cloudflare部署](https://github.com/yifyangvan/ip-geoaddress-generator/blob/main/Cloudflare部署教程.md)
 
 Docker部署
 
 ```bash
-docker run -p 3000:3000 guoogaii/ip-geoaddress-generator:latest
+docker run -p 3000:3000 yifyangvan/ip-geoaddress-generator:latest
 ```
 
 ## 本地开发
 
 1. 克隆仓库：
    ```bash
-   git clone https://github.com/GuooGaii/ip-geoaddress-generator.git
+   git clone https://github.com/yifyangvan/ip-geoaddress-generator.git
    ```
 
 2. 安装依赖：
@@ -95,7 +96,7 @@ docker run -p 3000:3000 guoogaii/ip-geoaddress-generator:latest
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=GuooGaii/ip-geoaddress-generator&type=Date)](https://www.star-history.com/#GuooGaii/ip-geoaddress-generator&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=yifyangvan/ip-geoaddress-generator&type=Date)](https://www.star-history.com/#GuooGaii/ip-geoaddress-generator&Date)
 
 ## 许可证
 
