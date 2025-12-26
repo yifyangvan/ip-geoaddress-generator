@@ -82,7 +82,7 @@ export function AddressInfo({
                 style={{ border: 0 }}
                 loading="lazy"
                 src={`https://maps.google.com/maps?q=${encodeURIComponent(
-                  [address.house_number, address.road, address.city, address.state, address.country]
+                  [(address as any).house_number, address.road, address.city, address.state, address.country]
                     .filter(Boolean)
                     .join(", ")
                 )}&output=embed&z=16`}
@@ -101,7 +101,7 @@ export function AddressInfo({
         
         // 如果是街道字段，将门牌号和街道合并显示
         if (field.id === "road" && addressSignal.value) {
-          const houseNumber = addressSignal.value.house_number;
+          const houseNumber = (addressSignal.value as any).house_number;
           const road = addressSignal.value.road;
           if (houseNumber && road) {
             displayValue = `${houseNumber} ${road}`;
