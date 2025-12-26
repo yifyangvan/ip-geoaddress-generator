@@ -82,7 +82,7 @@ export function AddressInfo({
                 style={{ border: 0 }}
                 loading="lazy"
                 src={`https://maps.google.com/maps?q=${encodeURIComponent(
-                  [address.road, address.city, address.state, address.country]
+                  [address.house_number, address.road, address.city, address.state, address.country]
                     .filter(Boolean)
                     .join(", ")
                 )}&output=embed&z=16`}
@@ -96,19 +96,36 @@ export function AddressInfo({
 
   return (
     <DataList.Root>
-      {addressFields.map((field) => (
-        <InfoItem
-          key={field.id}
-          label={field.label}
-          value={addressSignal.value?.[field.id]?.toString()}
-          loading={loading}
-          extraIcon={
-            field.id === "road"
-              ? getMapIcon(addressSignal.value, mapUrl)
-              : undefined
+      {addressFields.map((field) => {
+        let displayValue = addressSignal.value?.[field.id]?.toString();
+        
+        // 如果是街道字段，将门牌号和街道合并显示
+        if (field.id === "road" && addressSignal.value) {
+          const houseNumber = addressSignal.value.house_number;
+          const road = addressSignal.value.road;
+          if (houseNumber && road) {
+            displayValue = `${houseNumber} ${road}`;
+          } else if (road) {
+            displayValue = road;
+          } else if (houseNumber) {
+            displayValue = houseNumber;
           }
-        />
-      ))}
+        }
+        
+        return (
+          <InfoItem
+            key={field.id}
+            label={field.label}
+            value={displayValue}
+            loading={loading}
+            extraIcon={
+              field.id === "road"
+                ? getMapIcon(addressSignal.value, mapUrl)
+                : undefined
+            }
+          />
+        );
+      })}
     </DataList.Root>
   );
 }
