@@ -14,7 +14,7 @@
 
 ## 访问地址
 
-https://ip-geoaddress-generator.pages.dev/
+https://ip-geoaddress-generator-8t1.pages.dev/
 
 ## 主要功能
 更新：优先搜索附近地区住宅地址，精确到门牌号。（如果没有门牌号会自动忽略，可以多生成几次）
