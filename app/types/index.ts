@@ -17,6 +17,7 @@ export interface Coordinates {
 
 export interface Address {
   road?: string;
+  house_number?: string;
   city?: string;
   state?: string;
   postcode?: string;
