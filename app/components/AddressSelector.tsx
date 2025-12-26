@@ -105,7 +105,11 @@ export function AddressSelector({
             >
               <Select.Trigger />
               <Select.Content>
-                <Select.Item value="United States">United States</Select.Item>
+                {Object.keys(regionData).map((countryName) => (
+                  <Select.Item key={countryName} value={countryName}>
+                    {countryName}
+                  </Select.Item>
+                ))}
               </Select.Content>
             </Select.Root>
 
