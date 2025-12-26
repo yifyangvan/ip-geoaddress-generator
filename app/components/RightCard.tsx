@@ -2,7 +2,7 @@ import { Card, Text, Flex, Box, Separator } from "@radix-ui/themes";
 import { UserInfo } from "./UserInfo";
 import { AddressInfo } from "./AddressInfo";
 import { Signal } from "@preact/signals-react";
-import type { User, Address } from "../types";
+import type { User, Address } from "@/app/types";
 
 interface RightCardProps {
   userSignal: Signal<User | null>;

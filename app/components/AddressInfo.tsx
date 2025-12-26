@@ -1,7 +1,7 @@
 "use client";
 
 import { DataList, IconButton, HoverCard, Box, Inset } from "@radix-ui/themes";
-import { Address } from "../types";
+import { Address } from "@/app/types";
 import { GlobeIcon } from "@radix-ui/react-icons";
 import { addressService } from "@/services/addressService";
 import { InfoItem } from "./InfoItem";
