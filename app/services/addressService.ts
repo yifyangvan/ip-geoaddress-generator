@@ -163,6 +163,7 @@ export default class WFDService {
    */
   getGoogleMapUrl(address: Address): string {
     const addressString = [
+      address.house_number,
       address.road,
       address.city,
       address.state,
