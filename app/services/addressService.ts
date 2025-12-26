@@ -71,7 +71,14 @@ export default class WFDService {
   async getCoordinates(country: string, state: string, city: string) {
     try {
       const url = `https://nominatim.openstreetmap.org/search?q=${city},${state},${country}&format=json&limit=1`;
-      const response = await axios.get(url);
+      const response = await axios.get(url, {
+        headers: {
+          'User-Agent': 'IP-Geoaddress-Generator/1.0 (https://github.com/GuooGaii/ip-geoaddress-generator)'
+        }
+      });
+      if (!response.data || response.data.length === 0) {
+        throw new Error(`未找到坐标: ${city}, ${state}, ${country}`);
+      }
       const { lat, lon } = response.data[0];
       return { lat, lon };
     } catch (error) {
@@ -113,10 +120,17 @@ export default class WFDService {
     longitude: number
   ): Promise<Address> {
     try {
+      // 定义axios配置，添加user-agent头
+      const axiosConfig = {
+        headers: {
+          'User-Agent': 'IP-Geoaddress-Generator/1.0 (https://github.com/GuooGaii/ip-geoaddress-generator)'
+        }
+      };
+
       // 首先尝试1-2公里范围内查找
       let randomCoords = this.generateRandomOffset(latitude, longitude, 1);
       let url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en`;
-      let response = await axios.get(url);
+      let response = await axios.get(url, axiosConfig);
       let address = response.data.address;
       
       // 检查是否找到有效的住宅区地址（有门牌号或详细街道信息）
@@ -127,7 +141,7 @@ export default class WFDService {
         console.log("1-2公里范围内未找到住宅区，扩大搜索范围到10-20公里");
         randomCoords = this.generateRandomOffset(latitude, longitude, 15); // 10-20公里范围内的随机偏移
         url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en`;
-        response = await axios.get(url);
+        response = await axios.get(url, axiosConfig);
         address = response.data.address;
       }
       

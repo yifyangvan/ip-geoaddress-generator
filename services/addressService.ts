@@ -26,10 +26,17 @@ class AddressService {
       };
     };
 
+    // 定义axios配置，添加user-agent头
+    const axiosConfig = {
+      headers: {
+        'User-Agent': 'IP-Geoaddress-Generator/1.0 (https://github.com/GuooGaii/ip-geoaddress-generator)'
+      }
+    };
+
     // 首先尝试1-2公里范围内查找
     let randomCoords = generateRandomOffset(coordinates.latitude, coordinates.longitude, 1);
     let url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en`;
-    let response = await axios.get<AddressResponse>(url);
+    let response = await axios.get<AddressResponse>(url, axiosConfig);
     let address = response.data.address;
     
     // 检查是否找到有效的住宅区地址（有门牌号或详细街道信息）
@@ -40,7 +47,7 @@ class AddressService {
       console.log("1-2公里范围内未找到住宅区，扩大搜索范围到10-20公里");
       randomCoords = generateRandomOffset(coordinates.latitude, coordinates.longitude, 15); // 10-20公里范围内的随机偏移
       url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en`;
-      response = await axios.get<AddressResponse>(url);
+      response = await axios.get<AddressResponse>(url, axiosConfig);
       address = response.data.address;
     }
     
@@ -54,7 +61,12 @@ class AddressService {
   ): Promise<Coordinates> {
     try {
       const url = `https://nominatim.openstreetmap.org/search?q=${city},${state},${country}&format=json&limit=1`;
-      const response = await axios.get(url);
+      // 添加user-agent头
+      const response = await axios.get(url, {
+        headers: {
+          'User-Agent': 'IP-Geoaddress-Generator/1.0 (https://github.com/GuooGaii/ip-geoaddress-generator)'
+        }
+      });
       const { lat, lon } = response.data[0];
       return { latitude: lat, longitude: lon };
     } catch (error) {
