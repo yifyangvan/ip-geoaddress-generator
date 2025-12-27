@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Box, Flex, Select, Button } from "@radix-ui/themes";
 import * as Popover from "@radix-ui/react-popover";
 import styles from "./AddressSelector.module.css";
@@ -78,6 +78,30 @@ export function AddressSelector({
     };
   }, [hover]);
 
+  // 使用useMemo缓存排序结果，避免每次渲染都重新排序
+  const sortedCountries = useMemo(() => {
+    const countries = Object.keys(regionData);
+    // 将美国放在首位，其他国家按字母顺序排序
+    return [
+      "United States",
+      ...countries.filter(c => c !== "United States").sort((a, b) => a.localeCompare(b))
+    ];
+  }, [regionData]);
+
+  const sortedStates = useMemo(() => {
+    if (!country || !regionData[country]) {
+      return [];
+    }
+    return Object.keys(regionData[country]).sort((a, b) => a.localeCompare(b));
+  }, [country, regionData]);
+
+  const sortedCities = useMemo(() => {
+    if (!country || !state || !regionData[country] || !regionData[country][state]) {
+      return [];
+    }
+    return [...regionData[country][state]].sort((a, b) => a.localeCompare(b));
+  }, [country, state, regionData]);
+
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger asChild>
@@ -105,19 +129,11 @@ export function AddressSelector({
             >
               <Select.Trigger />
               <Select.Content>
-                {(() => {
-                  const countries = Object.keys(regionData);
-                  // 将美国放在首位，其他国家按字母顺序排序
-                  const sortedCountries = [
-                    "United States",
-                    ...countries.filter(c => c !== "United States").sort((a, b) => a.localeCompare(b))
-                  ];
-                  return sortedCountries.map((countryName) => (
-                    <Select.Item key={countryName} value={countryName}>
-                      {countryName}
-                    </Select.Item>
-                  ));
-                })()}
+                {sortedCountries.map((countryName) => (
+                  <Select.Item key={countryName} value={countryName}>
+                    {countryName}
+                  </Select.Item>
+                ))}
               </Select.Content>
             </Select.Root>
 
@@ -126,15 +142,11 @@ export function AddressSelector({
                 placeholder={isLoading ? "加载中..." : "选择州"}
               />
               <Select.Content>
-                {country &&
-                  regionData[country] &&
-                  Object.keys(regionData[country] || {})
-                    .sort((a, b) => a.localeCompare(b))
-                    .map((stateName) => (
-                      <Select.Item key={stateName} value={stateName}>
-                        {stateName}
-                      </Select.Item>
-                    ))}
+                {sortedStates.map((stateName) => (
+                  <Select.Item key={stateName} value={stateName}>
+                    {stateName}
+                  </Select.Item>
+                ))}
               </Select.Content>
             </Select.Root>
 
@@ -143,18 +155,11 @@ export function AddressSelector({
                 placeholder={isLoading ? "加载中..." : "选择城市"}
               />
               <Select.Content>
-                {country &&
-                  state &&
-                  [...(regionData[country]?.[state] || [])]
-                    .sort((a, b) => a.localeCompare(b))
-                    .map((cityName, index) => (
-                      <Select.Item
-                        key={`${state}-${cityName}-${index}`}
-                        value={cityName}
-                      >
-                        {cityName}
-                      </Select.Item>
-                    ))}
+                {sortedCities.map((cityName) => (
+                  <Select.Item key={`${state}-${cityName}`} value={cityName}>
+                    {cityName}
+                  </Select.Item>
+                ))}
               </Select.Content>
             </Select.Root>
 

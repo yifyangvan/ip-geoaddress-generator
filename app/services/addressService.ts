@@ -12,13 +12,22 @@ export default class WFDService {
   async getCurrentIP(): Promise<{ ip: string }> {
     try {
       const url = "https://api.ipify.org?format=json";
-      const response = await axios.get(url);
+      const response = await axios.get(url, {
+        timeout: 5000, // 设置5秒超时
+      });
+      
+      // 验证返回的数据
+      if (!response.data || !response.data.ip) {
+        throw new Error('获取的IP地址数据无效');
+      }
+      
       return response.data;
     } catch (error) {
-      if (error instanceof Error) {
-        console.error("获取当前IP地址失败:", error.message);
-      }
-      throw error;
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : '未知错误';
+      console.error("获取当前IP地址失败:", errorMessage);
+      throw new Error(`获取当前IP地址失败：${errorMessage}`);
     }
   }
 
@@ -31,19 +40,47 @@ export default class WFDService {
     ip: string
   ): Promise<{ latitude: number; longitude: number }> {
     try {
+      // 验证IP参数
+      if (!ip) {
+        throw new Error('IP地址参数不能为空');
+      }
+      
       const url = `https://ipapi.co/${ip}/json/`;
-      const response = await axios.get(url);
+      const response = await axios.get(url, {
+        timeout: 5000, // 设置5秒超时
+      });
+      
+      // 验证返回的数据结构
+      if (!response.data) {
+        throw new Error('获取的IP坐标数据无效');
+      }
+      
       const { latitude, longitude } = response.data;
+      
+      // 验证坐标数据存在性
+      if (latitude === undefined || longitude === undefined) {
+        throw new Error(`返回的坐标数据不完整：${ip}`);
+      }
+      
       // 确保返回的是数字类型
+      const lat = parseFloat(latitude.toString());
+      const lon = parseFloat(longitude.toString());
+      
+      // 验证坐标数值有效性
+      if (isNaN(lat) || isNaN(lon)) {
+        throw new Error(`返回的坐标数值无效：${ip}`);
+      }
+      
       return { 
-        latitude: parseFloat(latitude.toString()), 
-        longitude: parseFloat(longitude.toString()) 
+        latitude: lat, 
+        longitude: lon 
       };
     } catch (error) {
-      if (error instanceof Error) {
-        console.error(`获取IP(${ip})坐标失败:`, error.message);
-      }
-      throw error;
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : '未知错误';
+      console.error(`获取IP(${ip})坐标失败:`, errorMessage);
+      throw new Error(`获取IP坐标失败：${errorMessage}`);
     }
   }
 
@@ -54,14 +91,28 @@ export default class WFDService {
    */
   async getRandomUser(country: string) {
     try {
+      // 验证国家代码参数
+      if (!country) {
+        throw new Error('国家代码参数不能为空');
+      }
+      
       const url = `https://randomuser.me/api/?nat=${country}&inc=name,phone,id`;
-      const response = await axios.get<{ results: User[] }>(url);
+      const response = await axios.get<{ results: User[] }>(url, {
+        timeout: 5000, // 设置5秒超时
+      });
+      
+      // 验证返回的数据
+      if (!response.data || !response.data.results || response.data.results.length === 0) {
+        throw new Error(`获取的用户数据无效：${country}`);
+      }
+      
       return response.data;
     } catch (error) {
-      if (error instanceof Error) {
-        console.error(`获取随机用户信息失败(国家: ${country}):`, error.message);
-      }
-      throw error;
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : '未知错误';
+      console.error(`获取随机用户信息失败(国家: ${country}):`, errorMessage);
+      throw new Error(`获取随机用户信息失败：${errorMessage}`);
     }
   }
 
