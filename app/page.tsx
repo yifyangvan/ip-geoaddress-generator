@@ -282,9 +282,6 @@ export default function Home() {
     "Djibouti": "DJ",
     "Burkina Faso": "BF",
     "Mali": "ML",
-    "Niger": "NE",
-    "Chad": "TD",
-    "Central African Republic": "CF",
     
     // 大洋洲
     "Australia": "AU",
