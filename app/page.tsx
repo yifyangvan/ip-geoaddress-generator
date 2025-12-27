@@ -32,11 +32,13 @@ export default function Home() {
     addressRefetch: fetchAddress,
   } = useAddress(ipSignal.value);
   const { isLoading: ipLoading, error: ipError } = useIP();
+  const [currentCountry, setCurrentCountry] = useState<string>("US");
+
   const {
     isLoading: userLoading,
     error: userError,
     refetch: fetchUser,
-  } = useUser("US");
+  } = useUser(currentCountry);
 
   const [inputIp, setInputIp] = useState<string>("");
   const [inputMode, setInputMode] = useState<string>("ip");
@@ -68,6 +70,14 @@ export default function Home() {
 
   const hasAddedInitialHistory = useRef(false);
 
+  // 监听地址变化，更新国家并重新获取用户信息
+  effect(() => {
+    if (addressSignal.value?.country) {
+      const countryCode = addressSignal.value.country === "United States" ? "US" : addressSignal.value.country;
+      setCurrentCountry(countryCode);
+    }
+  });
+
   // 使用 signal 的 effect 监听数据变化
   effect(() => {
     if (
@@ -98,14 +108,16 @@ export default function Home() {
         }
         const [country, state, city] = inputIp.split("|");
         try {
+          // 先设置当前国家，再获取用户信息
+          setCurrentCountry(country === "United States" ? "US" : country);
           const coordinates = await addressService.getCoordinates(
             country,
             state,
             city
           );
           coordinatesSignal.value = coordinates;
-          await fetchUser();
           await fetchAddress();
+          await fetchUser();
           if (userSignal.value && addressSignal.value && ipSignal.value) {
             addHistoryRecord({
               user: userSignal.value,
@@ -125,6 +137,7 @@ export default function Home() {
       if (targetIp) {
         try {
           await fetchAddress();
+          // 地址获取后，currentCountry会通过effect自动更新，然后重新获取用户信息
           await fetchUser();
           if (userSignal.value && addressSignal.value && ipSignal.value) {
             addHistoryRecord({
