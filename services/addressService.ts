@@ -33,15 +33,15 @@ class AddressService {
     while (attempts < maxAttempts && !address) {
       attempts++;
       // 生成随机偏移范围，根据尝试次数逐渐扩大
-      const range = attempts === 1 ? 1 : attempts === 2 ? 5 : 15;
-      // 确保坐标是数值类型
-      const lat = parseFloat(coordinates.latitude.toString());
-      const lon = parseFloat(coordinates.longitude.toString());
-      let randomCoords = generateRandomOffset(lat, lon, range);
-      let url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en&addressdetails=1`;
-      
-      try {
-        let response = await axios.get<AddressResponse>(url);
+        const range = attempts === 1 ? 1 : attempts === 2 ? 5 : 15;
+        // 确保坐标是数值类型
+        const lat = parseFloat(coordinates.latitude.toString());
+        const lon = parseFloat(coordinates.longitude.toString());
+        const randomCoords = generateRandomOffset(lat, lon, range);
+        const url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en&addressdetails=1`;
+        
+        try {
+          const response = await axios.get<AddressResponse>(url);
           
           // 检查响应是否有效
           if (response.data && response.data.address) {
