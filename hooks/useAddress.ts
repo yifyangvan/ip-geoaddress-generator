@@ -20,12 +20,12 @@ export default function useAddress(ip: string | null) {
 
   // 获取地址的查询
   const addressQuery = useQuery<Address | null, Error>({
-    queryKey: ["address", coordinatesSignal.value],
+    queryKey: ["address", coordinatesQuery.data],
     queryFn: async () => {
       console.log("获取地址请求发起");
-      if (coordinatesSignal.value) {
+      if (coordinatesQuery.data) {
         const response = await addressService.getRandomAddress(
-          coordinatesSignal.value
+          coordinatesQuery.data
         );
         addressSignal.value = response;
         return response;
