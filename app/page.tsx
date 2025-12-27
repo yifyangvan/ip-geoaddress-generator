@@ -366,7 +366,7 @@ export default function Home() {
           );
           coordinatesSignal.value = coordinates;
           await fetchAddress();
-          await fetchUser();
+          // 移除直接调用fetchUser，因为effect会在currentCountry更新后自动处理
           if (userSignal.value && addressSignal.value && ipSignal.value) {
             addHistoryRecord({
               user: userSignal.value,
@@ -386,8 +386,7 @@ export default function Home() {
       if (targetIp) {
         try {
           await fetchAddress();
-          // 地址获取后，currentCountry会通过effect自动更新，然后重新获取用户信息
-          await fetchUser();
+          // 移除直接调用fetchUser，因为effect会在currentCountry更新后自动处理
           if (userSignal.value && addressSignal.value && ipSignal.value) {
             addHistoryRecord({
               user: userSignal.value,

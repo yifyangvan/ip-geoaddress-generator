@@ -20,19 +20,19 @@ export default function useAddress(ip: string | null) {
 
   // 获取地址的查询
   const addressQuery = useQuery<Address | null, Error>({
-    queryKey: ["address", coordinatesQuery.data],
+    queryKey: ["address", coordinatesQuery.data, coordinatesSignal.value],
     queryFn: async () => {
       console.log("获取地址请求发起");
-      if (coordinatesQuery.data) {
-        const response = await addressService.getRandomAddress(
-          coordinatesQuery.data
-        );
+      // 优先使用coordinatesSignal.value（手动设置的坐标），如果没有则使用coordinatesQuery.data（从IP获取的坐标）
+      const coords = coordinatesSignal.value || coordinatesQuery.data;
+      if (coords) {
+        const response = await addressService.getRandomAddress(coords);
         addressSignal.value = response;
         return response;
       }
       return null;
     },
-    enabled: coordinatesQuery.data !== null, // 只有当有坐标数据时才启用
+    enabled: coordinatesQuery.data !== null || coordinatesSignal.value !== undefined, // 当有坐标数据或手动设置了坐标时启用
     refetchOnWindowFocus: false,
   });
 
