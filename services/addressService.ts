@@ -40,27 +40,27 @@ class AddressService {
     while (attempts < maxAttempts && !address) {
       attempts++;
       // 生成随机偏移范围，根据尝试次数逐渐扩大
-      const range = attempts === 1 ? 1 : attempts === 2 ? 5 : 15;
-      let randomCoords = generateRandomOffset(coordinates.latitude, coordinates.longitude, range);
-      let url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en&addressdetails=1`;
-      
-      try {
-        let response = await axios.get<AddressResponse>(url, axiosConfig);
+        const range = attempts === 1 ? 1 : attempts === 2 ? 5 : 15;
+        const randomCoords = generateRandomOffset(coordinates.latitude, coordinates.longitude, range);
+        const url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en&addressdetails=1`;
         
-        // 检查响应是否有效
-        if (response.data && response.data.address) {
-          const addr = response.data.address;
-          // 检查是否找到有效的住宅区地址（有门牌号或详细街道信息）
-          const isResidential = addr.house_number || (addr.road && addr.city);
+        try {
+          const response = await axios.get<AddressResponse>(url, axiosConfig);
           
-          if (isResidential) {
-            address = addr;
+          // 检查响应是否有效
+          if (response.data && response.data.address) {
+            const addr = response.data.address;
+            // 检查是否找到有效的住宅区地址（有门牌号或详细街道信息）
+            const isResidential = addr.house_number || (addr.road && addr.city);
+            
+            if (isResidential) {
+              address = addr;
+            }
           }
+        } catch (_apiError) {
+          // 忽略单次API调用错误，继续尝试
+          console.log(`第${attempts}次尝试获取地址失败，继续尝试`);
         }
-      } catch (apiError) {
-        // 忽略单次API调用错误，继续尝试
-        console.log(`第${attempts}次尝试获取地址失败，继续尝试`);
-      }
     }
     
     if (!address) {

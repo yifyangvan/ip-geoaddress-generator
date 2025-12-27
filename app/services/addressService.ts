@@ -135,11 +135,11 @@ export default class WFDService {
         attempts++;
         // 生成随机偏移范围，根据尝试次数逐渐扩大
         const range = attempts === 1 ? 1 : attempts === 2 ? 5 : 15;
-        let randomCoords = this.generateRandomOffset(latitude, longitude, range);
-        let url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en&addressdetails=1`;
+        const randomCoords = this.generateRandomOffset(latitude, longitude, range);
+        const url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en&addressdetails=1`;
         
         try {
-          let response = await axios.get(url, axiosConfig);
+          const response = await axios.get(url, axiosConfig);
           
           // 检查响应是否有效
           if (response.data && response.data.address) {
@@ -151,7 +151,7 @@ export default class WFDService {
               address = addr;
             }
           }
-        } catch (apiError) {
+        } catch (_apiError) {
           // 忽略单次API调用错误，继续尝试
           console.log(`第${attempts}次尝试获取地址失败，继续尝试`);
         }
