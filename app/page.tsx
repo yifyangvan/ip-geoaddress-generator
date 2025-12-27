@@ -218,57 +218,6 @@ export default function Home() {
     "Niue": "NU",
     "Tonga": "TO",
     "Wallis and Futuna": "WF",
-    "Pitcairn Islands": "PN",
-    "Samoa": "WS",
-    "Tokelau": "TK",
-    "Tuvalu": "TV",
-    "Kiribati": "KI",
-    "Marshall Islands": "MH",
-    "Palau": "PW",
-    "Micronesia": "FM",
-    "Guam": "GU",
-    "Northern Mariana Islands": "MP",
-    "Cook Islands": "CK",
-    "Niue": "NU",
-    "Tonga": "TO",
-    "Wallis and Futuna": "WF",
-    "Pitcairn Islands": "PN",
-    "Australia": "AU",
-    "New Zealand": "NZ",
-    "Papua New Guinea": "PG",
-    "Fiji": "FJ",
-    "Solomon Islands": "SB",
-    "Vanuatu": "VU",
-    "New Caledonia": "NC",
-    "French Polynesia": "PF",
-    "Samoa": "WS",
-    "American Samoa": "AS",
-    "Tokelau": "TK",
-    "Tuvalu": "TV",
-    "Kiribati": "KI",
-    "Marshall Islands": "MH",
-    "Palau": "PW",
-    "Micronesia": "FM",
-    "Guam": "GU",
-    "Northern Mariana Islands": "MP",
-    "Cook Islands": "CK",
-    "Niue": "NU",
-    "Tonga": "TO",
-    "Wallis and Futuna": "WF",
-    "Pitcairn Islands": "PN",
-    "Samoa": "WS",
-    "Tokelau": "TK",
-    "Tuvalu": "TV",
-    "Kiribati": "KI",
-    "Marshall Islands": "MH",
-    "Palau": "PW",
-    "Micronesia": "FM",
-    "Guam": "GU",
-    "Northern Mariana Islands": "MP",
-    "Cook Islands": "CK",
-    "Niue": "NU",
-    "Tonga": "TO",
-    "Wallis and Futuna": "WF",
     "Pitcairn Islands": "PN"
   };
 
@@ -308,12 +257,13 @@ export default function Home() {
           setError("请选择地址");
           return;
         }
-        const [country, state, city] = inputIp.split("|");
+        const [countryName, state, city] = inputIp.split("|");
         try {
           // 先设置当前国家，再获取用户信息
-          setCurrentCountry(country === "United States" ? "US" : country);
+          const countryCode = countryNameToCode[countryName] || "US";
+          setCurrentCountry(countryCode);
           const coordinates = await addressService.getCoordinates(
-            country,
+            countryName,
             state,
             city
           );
