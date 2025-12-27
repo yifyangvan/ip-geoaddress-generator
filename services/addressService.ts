@@ -101,21 +101,47 @@ class AddressService {
   ): Promise<Coordinates> {
     try {
       // 验证输入参数
-      if (!country || !state || !city) {
-        throw new Error('国家、州和城市参数不能为空');
+      if (!country || !city) {
+        throw new Error('国家和城市参数不能为空');
       }
       
-      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)},${encodeURIComponent(state)},${encodeURIComponent(country)}&format=json&limit=1`;
-      const response = await axios.get(url, {
-        timeout: 5000, // 设置5秒超时
-      });
+      // 构建多种查询格式，提高成功率
+      const queryFormats = [
+        `${encodeURIComponent(city)},${encodeURIComponent(state)},${encodeURIComponent(country)}`,
+        `${encodeURIComponent(city)},${encodeURIComponent(country)}`,
+        `${encodeURIComponent(city)}`
+      ];
       
-      // 检查响应数据
-      if (!response.data || response.data.length === 0) {
+      let responseData = null;
+      
+      // 尝试不同的查询格式
+      for (const query of queryFormats) {
+        try {
+          const url = `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1&accept-language=en`;
+          const response = await axios.get(url, {
+            timeout: 5000, // 设置5秒超时
+            headers: {
+              // Nominatim API要求提供User-Agent
+              'User-Agent': 'IP-Geoaddress-Generator/1.0 (+https://github.com/example/ip-geoaddress-generator)'
+            }
+          });
+          
+          if (response.data && response.data.length > 0) {
+            responseData = response.data[0];
+            break; // 找到有效数据，跳出循环
+          }
+        } catch (innerError) {
+          // 忽略单次查询错误，继续尝试下一种格式
+          console.log(`尝试查询格式失败：${query}，错误：${(innerError as Error).message}`);
+        }
+      }
+      
+      // 检查是否找到有效数据
+      if (!responseData) {
         throw new Error(`未找到匹配的坐标：${city}, ${state}, ${country}`);
       }
       
-      const { lat, lon } = response.data[0];
+      const { lat, lon } = responseData;
       
       // 验证返回的坐标数据
       if (!lat || !lon) {
