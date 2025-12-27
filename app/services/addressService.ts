@@ -151,7 +151,7 @@ export default class WFDService {
               address = addr;
             }
           }
-        } catch (_apiError) {
+        } catch {
           // 忽略单次API调用错误，继续尝试
           console.log(`第${attempts}次尝试获取地址失败，继续尝试`);
         }
