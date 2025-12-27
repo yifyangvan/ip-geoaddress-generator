@@ -319,7 +319,10 @@ export default function Home() {
   effect(() => {
     if (addressSignal.value?.country) {
       const countryCode = countryNameToCode[addressSignal.value.country] || "US";
-      setCurrentCountry(countryCode);
+      // 添加条件判断，只有当countryCode与当前currentCountry不同时才更新，避免无限循环
+      if (countryCode !== currentCountry) {
+        setCurrentCountry(countryCode);
+      }
     }
   });
 
