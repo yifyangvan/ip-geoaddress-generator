@@ -71,11 +71,7 @@ export default class WFDService {
   async getCoordinates(country: string, state: string, city: string) {
     try {
       const url = `https://nominatim.openstreetmap.org/search?q=${city},${state},${country}&format=json&limit=1`;
-      const response = await axios.get(url, {
-        headers: {
-          'User-Agent': 'IP-Geoaddress-Generator/1.0 (https://github.com/GuooGaii/ip-geoaddress-generator)'
-        }
-      });
+      const response = await axios.get(url);
       if (!response.data || response.data.length === 0) {
         throw new Error(`未找到坐标: ${city}, ${state}, ${country}`);
       }
@@ -120,13 +116,6 @@ export default class WFDService {
     longitude: number
   ): Promise<Address> {
     try {
-      // 定义axios配置，添加user-agent头
-      const axiosConfig = {
-        headers: {
-          'User-Agent': 'IP-Geoaddress-Generator/1.0 (https://github.com/GuooGaii/ip-geoaddress-generator)'
-        }
-      };
-
       let attempts = 0;
       const maxAttempts = 3;
       let address: Address | null = null;
@@ -135,11 +124,14 @@ export default class WFDService {
         attempts++;
         // 生成随机偏移范围，根据尝试次数逐渐扩大
         const range = attempts === 1 ? 1 : attempts === 2 ? 5 : 15;
-        const randomCoords = this.generateRandomOffset(latitude, longitude, range);
-        const url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en&addressdetails=1`;
+        // 确保latitude和longitude是数值类型
+        const lat = parseFloat(latitude.toString());
+        const lon = parseFloat(longitude.toString());
+        let randomCoords = this.generateRandomOffset(lat, lon, range);
+        let url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en&addressdetails=1`;
         
         try {
-          const response = await axios.get(url, axiosConfig);
+          let response = await axios.get(url);
           
           // 检查响应是否有效
           if (response.data && response.data.address) {

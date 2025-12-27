@@ -26,13 +26,6 @@ class AddressService {
       };
     };
 
-    // 定义axios配置，添加user-agent头
-    const axiosConfig = {
-      headers: {
-        'User-Agent': 'IP-Geoaddress-Generator/1.0 (https://github.com/GuooGaii/ip-geoaddress-generator)'
-      }
-    };
-
     let attempts = 0;
     const maxAttempts = 3;
     let address: Address | null = null;
@@ -40,12 +33,15 @@ class AddressService {
     while (attempts < maxAttempts && !address) {
       attempts++;
       // 生成随机偏移范围，根据尝试次数逐渐扩大
-        const range = attempts === 1 ? 1 : attempts === 2 ? 5 : 15;
-        const randomCoords = generateRandomOffset(coordinates.latitude, coordinates.longitude, range);
-        const url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en&addressdetails=1`;
-        
-        try {
-          const response = await axios.get<AddressResponse>(url, axiosConfig);
+      const range = attempts === 1 ? 1 : attempts === 2 ? 5 : 15;
+      // 确保坐标是数值类型
+      const lat = parseFloat(coordinates.latitude.toString());
+      const lon = parseFloat(coordinates.longitude.toString());
+      let randomCoords = generateRandomOffset(lat, lon, range);
+      let url = `https://nominatim.openstreetmap.org/reverse?lat=${randomCoords.latitude}&lon=${randomCoords.longitude}&format=json&accept-language=en&addressdetails=1`;
+      
+      try {
+        let response = await axios.get<AddressResponse>(url);
           
           // 检查响应是否有效
           if (response.data && response.data.address) {
@@ -77,12 +73,7 @@ class AddressService {
   ): Promise<Coordinates> {
     try {
       const url = `https://nominatim.openstreetmap.org/search?q=${city},${state},${country}&format=json&limit=1`;
-      // 添加user-agent头
-      const response = await axios.get(url, {
-        headers: {
-          'User-Agent': 'IP-Geoaddress-Generator/1.0 (https://github.com/GuooGaii/ip-geoaddress-generator)'
-        }
-      });
+      const response = await axios.get(url);
       const { lat, lon } = response.data[0];
       return { latitude: lat, longitude: lon };
     } catch (error) {
