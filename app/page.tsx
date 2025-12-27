@@ -37,7 +37,6 @@ export default function Home() {
   const {
     isLoading: userLoading,
     error: userError,
-    refetch: fetchUser,
   } = useUser(currentCountry);
 
   const [inputIp, setInputIp] = useState<string>("");
