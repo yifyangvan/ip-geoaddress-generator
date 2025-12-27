@@ -75,7 +75,11 @@ class AddressService {
       const url = `https://nominatim.openstreetmap.org/search?q=${city},${state},${country}&format=json&limit=1`;
       const response = await axios.get(url);
       const { lat, lon } = response.data[0];
-      return { latitude: lat, longitude: lon };
+      // 确保返回的是数字类型
+      return { 
+        latitude: parseFloat(lat.toString()), 
+        longitude: parseFloat(lon.toString()) 
+      };
     } catch (error) {
       if (error instanceof Error) {
         console.error(

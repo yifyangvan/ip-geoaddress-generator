@@ -34,7 +34,11 @@ export default class WFDService {
       const url = `https://ipapi.co/${ip}/json/`;
       const response = await axios.get(url);
       const { latitude, longitude } = response.data;
-      return { latitude, longitude };
+      // 确保返回的是数字类型
+      return { 
+        latitude: parseFloat(latitude.toString()), 
+        longitude: parseFloat(longitude.toString()) 
+      };
     } catch (error) {
       if (error instanceof Error) {
         console.error(`获取IP(${ip})坐标失败:`, error.message);
@@ -66,7 +70,7 @@ export default class WFDService {
    * @param country 国家
    * @param state 省份
    * @param city 城市
-   * @returns {Promise<{ lat: number, lon: number }>} 包含坐标对象
+   * @returns {Promise<{ latitude: number, longitude: number }>} 包含坐标对象
    */
   async getCoordinates(country: string, state: string, city: string) {
     try {
@@ -76,7 +80,11 @@ export default class WFDService {
         throw new Error(`未找到坐标: ${city}, ${state}, ${country}`);
       }
       const { lat, lon } = response.data[0];
-      return { lat, lon };
+      // 确保返回的是数字类型，并且属性名与调用方匹配
+      return { 
+        latitude: parseFloat(lat.toString()), 
+        longitude: parseFloat(lon.toString()) 
+      };
     } catch (error) {
       if (error instanceof Error) {
         console.error(
